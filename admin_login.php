@@ -1,4 +1,10 @@
-<?php include_once('includes/header.php');
+<?php
+include_once('includes/header.php');
+include_once('init.php');
+
+$message = new Messages();
+$message->show_message();
+
 
 ?>
 
@@ -20,7 +26,7 @@
                 <div class="form-group">
                     <span class="glyphicon glyphicon-user"> </span>
                     <input class="form-control" type="text" placeholder="User Name" name="user_name" id="user_name"
-                           required>
+                        required>
 
                 </div>
 

@@ -1,5 +1,9 @@
-<?php include_once('includes/header.php'); ?>
-<?php include('includes/helper_fn.php');
+<?php
+include_once('includes/header.php');
+include('init.php');
+
+$message = new Messages();
+$message->show_message();
 
 
 ?>

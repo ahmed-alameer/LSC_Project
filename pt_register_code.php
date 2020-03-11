@@ -2,7 +2,7 @@
 session_start();
 
 
-include('config.php');
+include('init.php');
 
 if (isset($_POST['pt_register'])) {
 
@@ -30,20 +30,15 @@ if (isset($_POST['pt_register'])) {
 
 
     $sql = "insert into peer_tutor(pt_s_id , pt_name , pt_eamil , pt_major) values()";
-    $stmt = $conn->prepare($sql);
 
-    $stmt->execute([$user, $pass]);
-
-    $count = $stmt->rowCount();
-
-    if ($count > 0) {
+    // if ($count > 0) {
 
 
-        header("Location:register_courses.php");
-    } else {
+    //     header("Location:register_courses.php");
+    // } else {
 
-        $_SESSION['error'] = "Wrong User";
+    //     $_SESSION['error'] = "Wrong User";
 
-        header("Location:pt_login.php");
-    }
+    //     header("Location:pt_login.php");
+    // }
 }

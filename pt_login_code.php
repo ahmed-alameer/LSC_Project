@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
 
 
     $count = $base_class->count_rows();
-
+    $message = new Messages();
 
 
     if ($count > 0) {
@@ -47,18 +47,18 @@ if (isset($_POST['login'])) {
 
         if (password_verify($pass, $db_pass)) {
 
-            $_SESSION['success'] = "User Loged in";
+            $message->set_message('Success Login', 'success');
 
             header("Location:pt_home.php");
         } else {
 
 
-            $_SESSION['error'] = "Wrong Password";
+            $message->set_message('Wronge Password', 'error');
             header("Location:pt_login.php");
         }
     } else {
 
-        $_SESSION['error'] = "Wrong User";
+        $message->set_message('Wronge User', 'error');
 
         header("Location:pt_login.php");
     }
