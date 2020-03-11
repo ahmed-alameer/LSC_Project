@@ -1,0 +1,47 @@
+/* === css variables  === */
+:root {
+  --color-green: #55c57a;
+  --color-green-light: #7ed56f;
+  --color-green-dark: #28b485;
+}
+
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+.margin-top {
+  margin-top: 50px;
+}
+
+.margin-bottom {
+  margin-bottom: 50px;
+}
+
+.content {
+  background: linear-gradient(
+    to left bottom,
+    var(--color-green-light),
+    var(--color-green-dark)
+  );
+  margin-top: 30px;
+  padding: 50px;
+  border-radius: 20px;
+}
+.text-white {
+  color: rgb(255, 255, 255);
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.btn-green {
+  background-color: var(--color-green-dark);
+  color: white;
+  border: 1px solid var(--color-green-light);
+}
+
+.btn-green:hover {
+  background-color: var(--color-green-light);
+  color: white;
+  border: 1px solid var(--color-green-dark);
+}
