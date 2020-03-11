@@ -17,10 +17,10 @@
 
         if (is_null($params)) {
 
-            $this->query->execute();
+            return   $this->query->execute();
         } else {
 
-            $this->query->execute($params);
+            return    $this->query->execute($params);
         }
     }
 
@@ -49,5 +49,16 @@
     {
 
         return trim(strip_tags($text));
+    }
+
+    public function last_insert_id()
+    {
+        return $this->conn->lastInsertId();
+    }
+
+    public function affect_rows()
+    {
+
+        $this->query->affetedRows();
     }
 }
