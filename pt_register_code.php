@@ -46,7 +46,6 @@ if (isset($_POST['pt_register'])) {
       pt_gender , pt_teach_gender , pt_phone , pt_password) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
-
     $base_class->normal_query($sql, [
 
         $pt_st_id, $pt_name, $pt_code, $pt_email, $pt_major, $pt_department, $pt_gpa_major,
@@ -56,24 +55,16 @@ if (isset($_POST['pt_register'])) {
 
     $count =   $base_class->count_rows();
 
-    // var_dump($count);
-    // exit;
-
     $message = new Messages();
 
 
+    if ($count > 0) {
 
-
-    if ($result) {
-
-        $_SESSION['pt'] = [
-            'id' => $base_class->last_insert_id(),
-        ];
+        $_SESSION['pt'] = ['id' => $base_class->last_insert_id()];
 
         $message->set_message("User Registered Successfully", "success");
 
-
-        header("Location:pt_register_courses_schudel.php");
+        header("Location:pt_register_courses_schedule.php");
     } else {
 
         $message->set_message("User Not Registered", "error");

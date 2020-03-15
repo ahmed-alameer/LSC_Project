@@ -18,7 +18,7 @@ class Messages
                 'text' => $text
 
             ];
-        } else {
+        } elseif ($type == "success") {
 
             $_SESSION['msg'] = [
                 'type' => 'success',
@@ -32,24 +32,30 @@ class Messages
     {
 
 
-        if (isset($_SESSION['msg']['type']) == 'error') {
+        if (isset($_SESSION['msg'])) {
 
-            $msg_text = $_SESSION['msg']['text'];
 
-            echo "<script>
+            if ($_SESSION['msg']['type'] == 'error') {
+
+
+
+                $msg_text = $_SESSION['msg']['text'];
+
+                echo "<script>
                    alertify.error('$msg_text');
                   </script>";
 
-            unset($_SESSION['msg']);
-        } elseif (isset($_SESSION['msg']['type']) == 'success') {
+                unset($_SESSION['msg']);
+            } elseif ($_SESSION['msg']['type'] == 'success') {
 
-            $msg_text = $_SESSION['msg']['text'];
+                $msg_text = $_SESSION['msg']['text'];
 
-            echo "<script>
-                   alertify.error('$msg_text');
+                echo "<script>
+                   alertify.success('$msg_text');
                   </script>";
 
-            unset($_SESSION['msg']);
+                unset($_SESSION['msg']);
+            }
         }
     }
 }

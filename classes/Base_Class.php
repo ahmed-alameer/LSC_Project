@@ -2,7 +2,7 @@
 {
 
 
-    public $query;
+    private $query;
 
     public function __construct()
     {
@@ -27,7 +27,6 @@
 
     public function single_row()
     {
-
         return $this->query->fetch(PDO::FETCH_OBJ);
     }
 
@@ -54,11 +53,5 @@
     public function last_insert_id()
     {
         return $this->conn->lastInsertId();
-    }
-
-    public function affect_rows()
-    {
-
-        $this->query->affetedRows();
     }
 }
