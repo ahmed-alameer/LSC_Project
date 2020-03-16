@@ -40,7 +40,7 @@ if ($count > 0) {
                 <td>$row->pt_course_id</td>
                 <td>$row->pt_course_code</td>
                 <td>$row->pt_subject</td>
-                <td><button class='btn btn-danger btn-sm delete' onclick='confirm_fnc()' id='$row->pt_course_id'><span class='glyphicon glyphicon-remove-sign'></span></button></td>
+                <td><button class='btn btn-danger btn-sm delete-course'  id='$row->pt_course_id'><span class='glyphicon glyphicon-remove-sign'></span></button></td>
             </tr>
     ";
     }

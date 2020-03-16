@@ -6,7 +6,7 @@ include("../init.php");
 
 $base_class = new Base_Class();
 
-$sql = "select * from pt_courses";
+$sql = "select * from pt_weekly_schedule  wk , schedule_time st where  wk.sch_time_id = st.sch_time_id ";
 $base_class->normal_query($sql);
 $rows = $base_class->all_rows();
 
@@ -18,8 +18,8 @@ $output = "
      <thead>
          <tr class='text-white'>
              <th>ID</th>
-             <th>Course Code</th>
-             <th>Subject</th>
+             <th>Time</th>
+             <th>Day</th>
              <th>Action</th>
          </tr>
      </thead>
@@ -37,17 +37,19 @@ if ($count > 0) {
         $output .= "
        
         <tr>
-                <td>$row->pt_course_id</td>
-                <td>$row->pt_course_code</td>
-                <td>$row->pt_subject</td>
-                <td><button class='btn btn-danger btn-sm delete' onclick='confirm_fnc()' id='$row->pt_course_id'><span class='glyphicon glyphicon-remove-sign'></span></button></td>
-            </tr>
+                <td>$row->pt_w_sch_id</td>
+                <td>$row->sch_time</td>
+                <td>$row->pt_w_sch_day</td>
+               
+                <td><button class='btn btn-danger btn-sm delete-sch'  id='$row->pt_w_sch_id'><span class='glyphicon glyphicon-remove-sign'></span></button></td>
+          
+                </tr>
     ";
     }
 } else {
 
     $output .= "<tr>
-                <td colspan='4' align='center' >No Data Found</td>
+                <td colspan='9' align='center' >No Data Found</td>
                
             </tr>
             

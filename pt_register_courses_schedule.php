@@ -23,7 +23,8 @@ $message->show_message();
 
                 <div class="form-group">
 
-                    <input class="form-control" type="text" placeholder="Course Code " name="course_code" id="course_code">
+                    <input class="form-control" type="text" placeholder="Course Code " name="course_code"
+                        id="course_code">
                 </div>
 
                 <div class="form-group">
@@ -33,7 +34,8 @@ $message->show_message();
                 </div>
 
                 <div class="form-group">
-                    <input class="btn btn-success btn-block " name="register_courses" id="register_courses" type="button" value="Register Courses">
+                    <input class="btn btn-success btn-block " name="register_courses" id="register_courses"
+                        type="button" value="Register Courses">
                 </div>
 
             </form>
@@ -43,26 +45,26 @@ $message->show_message();
 
 
 
-        <div class="col-sm-offset-1 col-sm-5 text-center">
-            <h2>Schedule</h2>
+        <div class=" col-sm-5 text-center">
+            <h2>Weekly Schedule</h2>
 
-            <form method="POST" class="content">
+            <form method="POST" class="content" id="form_schedule">
+
+
 
                 <div class="form-group">
 
-
-
-                    <select name="pt_hour" id="pt_hour" class="form-control">
-                        <option value="">Select Houre</option>
+                    <select name="sch_time_id" id="sch_time_id" class="form-control">
+                        <option value="">Select Time</option>
 
                         <?php
                         $base_class = new Base_Class();
-                        $base_class->normal_query("select * from schedule_hours");
+                        $base_class->normal_query("select * from schedule_time");
                         $hours = $base_class->all_rows(); ?>
 
 
                         <?php foreach ($hours as $hour) :  ?>
-                            <option value="<?php echo $hour->sc_id ?>"><?php echo $hour->sc_hour ?></option>
+                        <option value="<?php echo $hour->sch_time_id ?>"><?php echo $hour->sch_time ?></option>
 
                         <?php endforeach;  ?>
 
@@ -73,9 +75,12 @@ $message->show_message();
 
 
 
+
+
+
                 <div class="form-group">
 
-                    <select name="pt_day" id="pt_day" class="form-control">
+                    <select name="pt_w_sch_day" id="pt_w_sch_day" class="form-control">
                         <option value="">Select Day</option>
                         <option value="Sunday">Sunday</option>
                         <option value="Monday">Monday</option>
@@ -87,20 +92,20 @@ $message->show_message();
                 </div>
 
 
+
+
+
+
+
+
+
                 <div class="form-group">
-                    <input class="btn btn-success btn-block " name="register_schedule" id="register_schedule" type="button" value="Register Schedule">
+                    <input class="btn btn-success btn-block " name="register_schedule" id="register_schedule"
+                        type="button" value="Register Schedule">
                 </div>
-
-
-
             </form>
         </div>
     </div>
-
-
-
-
-
 
 
 
@@ -118,18 +123,18 @@ $message->show_message();
 
                 </div>
 
-
-
             </div>
 
         </div>
 
 
-        <div class="col-sm-offset-1 col-sm-5 text-center">
+        <div class=" col-sm-5 text-center">
 
             <div class="content">
 
+                <div class="table-responsive" id="schedule_data">
 
+                </div>
 
 
             </div>
@@ -141,132 +146,154 @@ $message->show_message();
 <?php include_once('includes/footer.php'); ?>
 
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        show_courses();
-
-
-
-
-        $('#register_courses').click(function(e) {
-
-
-
-            e.preventDefault();
-
-            add_course();
-
-        });
+    show_courses();
+    show_schedule();
 
 
 
 
-        $('#register_schedule').click(function() {
+    $('#register_courses').click(function(e) {
 
 
 
-        });
+        e.preventDefault();
+
+        add_course();
+
+    });
 
 
 
-        function add_course() {
 
-            var course_code = $('#course_code').val();
-            var subject = $('#subject').val();
-
-            if (course_code == "" || subject == "") {
-                alertify.error('Please Enter All Values');
-                return;
-
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "ajax/pt_add_course.php",
-                dataType: "json",
-                data: {
-                    course_code: course_code,
-                    subject: subject
-                },
-                success: function(response) {
-
-                    if (response.status == "success") {
-
-                        alertify.success('Course Added Successfully');
-                        show_courses();
-                        $('#form_courses').trigger("reset");
+    $('#register_schedule').click(function(e) {
 
 
-                    }
+        e.preventDefault();
 
-                },
-                error: function() {
+        add_schedule();
 
-                    alertify.error('Course Not Added');
+
+
+    });
+
+
+
+    function add_course() {
+
+        var course_code = $('#course_code').val();
+        var subject = $('#subject').val();
+
+        if (course_code == "" || subject == "") {
+            alertify.error('Please Enter All Values');
+            return;
+
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/pt_add_course.php",
+            dataType: "json",
+            data: {
+                course_code: course_code,
+                subject: subject
+            },
+            success: function(response) {
+
+                if (response.status == "success") {
+
+                    alertify.success('Schedule Added Successfully');
+
+                    show_courses();
+                    $('#form_courses').trigger("reset");
+
 
                 }
 
-            });
+            },
+            error: function() {
 
-
-
-
-
-        }
-
-
-
-
-        function add_schedule() {
-
-            var pt_hour = $('#pt_hour').val();
-            var pt_day = $('#pt_day').val();
-
-            if (pt_hour == "" || pt_day == "") {
-                alertify.error('Please Enter All Values');
-
-            } else {
-
+                alertify.error('Schedule Not Added');
 
             }
-
-        }
-
-
-
-        function show_schedule() {
-
-            $.ajax({
-                method: "GET",
-                url: "ajax/pt_show_schedule.php",
-                success: function(response) {
-
-                    $("#courses_data").html(response);
-
-                },
-                error: function(e) {
-
-                    console.log(e);
-
-                }
-
-            });
-
-
-        }
-
-
-
-
-        $(document).on('click', '.delete', function() {
-
-
 
         });
 
 
 
 
+
+    }
+
+
+
+
+    function add_schedule() {
+
+        var sch_time_id = $('#sch_time_id').val();
+        var pt_w_sch_day = $('#pt_w_sch_day').val();
+
+        if (sch_time_id == "" || pt_w_sch_day == "") {
+            alertify.error('Please Enter All Values');
+
+            return;
+
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/pt_add_schedule.php",
+            dataType: "json",
+            data: {
+                sch_time_id: sch_time_id,
+                pt_w_sch_day: pt_w_sch_day
+            },
+            success: function(response) {
+
+                if (response.status == "success") {
+
+                    alertify.success('Schedule Added Successfully');
+                    show_schedule();
+                    $('#form_schedule').trigger("reset");
+
+
+                }
+
+            },
+            error: function() {
+
+                alertify.error('Schedule Not Added');
+
+            }
+
+        });
+
+    }
+
+
+
+
+    $(document).on('click', '.delete-course', function() {
+
+
+        var id = $(this).attr('id')
+
+        confirm_fnc(id);
+
+
+    });
+
+
+
+
+    $(document).on('click', '.delete-sch', function() {
+
+
+        var id = $(this).attr('id')
+
+        schedule_confirm_fnc(id);
 
 
     });
@@ -275,59 +302,131 @@ $message->show_message();
 
 
 
-    function show_courses() {
+
+});
+
+
+
+
+
+function show_courses() {
+
+    $.ajax({
+        method: "GET",
+        url: "ajax/pt_show_courses.php",
+        success: function(response) {
+
+            $("#courses_data").html(response);
+
+        },
+        error: function(e) {
+
+            console.log(e);
+
+        }
+
+    });
+
+
+}
+
+
+
+
+function show_schedule() {
+
+    $.ajax({
+        method: "GET",
+        url: "ajax/pt_show_schedule.php",
+        success: function(response) {
+
+            $("#schedule_data").html(response);
+
+        },
+        error: function(e) {
+
+            console.log(e);
+
+        }
+
+    });
+
+
+}
+
+
+
+
+function confirm_fnc(id) {
+
+    //return confirm("Are You Sure");
+
+    return alertify.confirm('Delet Course With ID ' + id, 'Are You Sure', function() {
+
+
 
         $.ajax({
-            method: "GET",
-            url: "ajax/pt_show_courses.php",
+            type: "POST",
+            url: "ajax/pt_delete_course.php",
+            dataType: "json",
+            data: {
+                id: id
+            },
             success: function(response) {
 
-                $("#courses_data").html(response);
+                if (response.status == "success") {
 
-            },
-            error: function(e) {
+                    alertify.success('Course Deleted Successfully');
+                    show_courses();
 
-                console.log(e);
+
+                }
 
             }
 
         });
 
 
-    }
 
-    function confirm_fnc() {
+    }, function() {
 
-        //return confirm("Are You Sure");
+    });
 
-        return alertify.confirm('Delet Course', 'Are You Sure', function() {
-
-            var id = $('.delete').attr('id');
-
-            $.ajax({
-                type: "POST",
-                url: "ajax/pt_delete_course.php",
-                dataType: "json",
-                data: {
-                    id: id
-                },
-                success: function(response) {
-
-                    if (response.status == "success") {
-                        show_courses();
-                        alertify.success('Course Deleted Successfully');
+}
 
 
 
-                    }
+function schedule_confirm_fnc(id) {
+
+    //return confirm("Are You Sure");
+
+
+    return alertify.confirm('Delet Course With ID ' + id, 'Are You Sure', function() {
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/pt_delete_schedule.php",
+            dataType: "json",
+            data: {
+                id: id
+            },
+            success: function(response) {
+
+                if (response.status == "success") {
+
+                    alertify.success('Schedule Deleted Successfully');
+
+                    show_schedule();
 
                 }
 
-            });
-
-        }, function() {
+            }
 
         });
 
-    }
+    }, function() {
+
+    });
+
+}
 </script>
