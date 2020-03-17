@@ -16,20 +16,22 @@ $pt_w_sch_day =  $base_class->security($_POST['pt_w_sch_day']);
 $sql = "insert into pt_weekly_schedule(pt_id , sch_time_id , pt_w_sch_day) values(?,?,?)";
 
 
-$base_class->normal_query($sql, [
+$res =  $base_class->normal_query($sql, [
 
     $pt_id, $sch_time_id, $pt_w_sch_day
 ]);
 
+
+
 $count =   $base_class->count_rows();
+
+
 
 if ($count > 0) {
 
-    $status = "success";
-
-    $response = ['status' => $status];
+    $response = ['status' => "success"];
+} else {
+    $response = ['status' => "error"];
 }
-
-
 
 echo json_encode($response);

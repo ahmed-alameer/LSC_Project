@@ -16,10 +16,18 @@ $pt_id = $_SESSION['pt']['id'] ? $_SESSION['pt']['id'] : 0;
 
 $id =  $_POST['id'];
 
-$sql = "delete from pt_weekly_schedule where pt_w_sch_id = ?";
+$id_array = explode('&', $id);
+
+$time_id = $id_array[1];
+$day = $id_array[2];
 
 
-$base_class->normal_query($sql, [$id]);
+
+
+$sql = "delete from pt_weekly_schedule where pt_id = ? and sch_time_id = ? and pt_w_sch_day = ?";
+
+
+$base_class->normal_query($sql, [$pt_id, $time_id, $day]);
 
 $count =   $base_class->count_rows();
 

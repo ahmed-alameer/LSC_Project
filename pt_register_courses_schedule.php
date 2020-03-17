@@ -5,6 +5,8 @@ include_once('init.php');
 $message = new Messages();
 $message->show_message();
 
+$pt_id =  $_SESSION['pt']['id'] ?  $_SESSION['pt']['id'] : 0;
+
 
 ?>
 <div class="container">
@@ -203,7 +205,7 @@ $(document).ready(function() {
 
                 if (response.status == "success") {
 
-                    alertify.success('Schedule Added Successfully');
+                    alertify.success('Course Added Successfully');
 
                     show_courses();
                     $('#form_courses').trigger("reset");
@@ -214,7 +216,7 @@ $(document).ready(function() {
             },
             error: function() {
 
-                alertify.error('Schedule Not Added');
+                alertify.error('Course Not Added');
 
             }
 
@@ -259,6 +261,8 @@ $(document).ready(function() {
                     $('#form_schedule').trigger("reset");
 
 
+                } else {
+                    alertify.error('Schedule Not Added');
                 }
 
             },

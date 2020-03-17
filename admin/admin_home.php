@@ -6,6 +6,8 @@ include_once('../init.php');
 $message = new Messages();
 $message->show_message();
 
+echo password_hash('admin', PASSWORD_DEFAULT);
+
 ?>
 
 

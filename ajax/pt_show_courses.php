@@ -1,13 +1,15 @@
 <?php
-
+session_start();
 
 include("../init.php");
 
 
 $base_class = new Base_Class();
 
-$sql = "select * from pt_courses";
-$base_class->normal_query($sql);
+$pt_id =  $_SESSION['pt']['id'] ?  $_SESSION['pt']['id'] : 0;
+
+$sql = "select * from pt_courses where pt_id = ?";
+$base_class->normal_query($sql, [$pt_id]);
 $rows = $base_class->all_rows();
 
 $count = $base_class->count_rows();
