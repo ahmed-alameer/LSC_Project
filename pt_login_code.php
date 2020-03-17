@@ -47,6 +47,12 @@ if (isset($_POST['login'])) {
 
         if (password_verify($pass, $db_pass)) {
 
+            $_SESSION['pt'] = [
+                'id' => $db_row->pt_id,
+                'name' => $db_row->pt_name,
+                'st_id' => $db_row->pt_st_id
+            ];
+
             $message->set_message('Success Login', 'success');
 
             header("Location:pt_home.php");

@@ -15,7 +15,7 @@
                 <h1 class="text-center margin-top margin-bottom text-white">User Type</h1>
                 <div class="pull-left">
 
-                    <a href="admin_login.php" class="btn btn-success">Admin Login</a>
+                    <a href="admin/admin_login.php" class="btn btn-success">Admin Login</a>
                 </div>
                 <div class="pull-right">
                     <a href="pt_login.php" class="btn btn-success">Peer Tutor Login</a>

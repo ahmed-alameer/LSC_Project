@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("init.php");
+include("../init.php");
 
 if (isset($_POST['login'])) {
 
