@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2020 at 11:07 AM
+-- Generation Time: Mar 18, 2020 at 02:38 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -91,7 +91,8 @@ INSERT INTO `peer_tutor` (`pt_id`, `pt_st_id`, `pt_name`, `pt_code`, `pt_registe
 (16, 20120000, 'said ali', 'sa', '2020-03-12 06:02:05', 's@gmail.com', 'cs', 'cs', '88', '88', 'Dhofar', 2147483647, 0, 'both', 4, 99998888, 'admin', 0),
 (17, 20120000, 'said ali', 'sa', '2020-03-12 07:41:40', 's@gmail.com', 'cs', 'cs', '88', '88', 'Dhofar', 2147483647, 0, 'both', 4, 99998888, 'admin', 0),
 (18, 20120000, 'said ali', 'sa', '2020-03-12 08:46:36', 's@gmail.com', 'cs', 'cs', '88', '88', 'Dhofar', 2147483647, 0, 'both', 4, 99998888, 'admin', 0),
-(19, 20120000, 'said ali', 'sa', '2020-03-15 05:37:27', 's@gmail.com', 'cs', 'cs', '88', '88', 'Dhofar', 2147483647, 0, 'both', 4, 99998888, 'admin', 0);
+(19, 20120000, 'said ali', 'sa', '2020-03-15 05:37:27', 's@gmail.com', 'cs', 'cs', '88', '88', 'Dhofar', 2147483647, 0, 'both', 4, 99998888, 'admin', 0),
+(20, 20120000, 'said ali', 'sa', '2020-03-18 13:35:20', 's@gmail.com', 'cs', 'cs', '88', '88', 'Dhofar', 2147483647, 0, 'both', 4, 99998888, 'admin', 0);
 
 -- --------------------------------------------------------
 
@@ -111,7 +112,8 @@ CREATE TABLE `pt_courses` (
 --
 
 INSERT INTO `pt_courses` (`pt_course_id`, `pt_id`, `pt_course_code`, `pt_subject`) VALUES
-(68, 19, 'tt', 'ttttt');
+(68, 19, 'tt', 'ttttt'),
+(70, 20, 'CMPS180', 'Test Subject');
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,6 @@ CREATE TABLE `pt_schedule` (
 --
 
 CREATE TABLE `pt_weekly_schedule` (
-  `pt_w_sch_id` int(11) NOT NULL,
   `pt_id` int(11) NOT NULL,
   `sch_time_id` int(11) NOT NULL,
   `pt_w_sch_day` varchar(50) NOT NULL
@@ -166,8 +167,8 @@ CREATE TABLE `pt_weekly_schedule` (
 -- Dumping data for table `pt_weekly_schedule`
 --
 
-INSERT INTO `pt_weekly_schedule` (`pt_w_sch_id`, `pt_id`, `sch_time_id`, `pt_w_sch_day`) VALUES
-(26, 19, 2, 'Sunday');
+INSERT INTO `pt_weekly_schedule` (`pt_id`, `sch_time_id`, `pt_w_sch_day`) VALUES
+(19, 2, 'Sunday');
 
 -- --------------------------------------------------------
 
@@ -267,7 +268,7 @@ ALTER TABLE `pt_schedule`
 -- Indexes for table `pt_weekly_schedule`
 --
 ALTER TABLE `pt_weekly_schedule`
-  ADD PRIMARY KEY (`pt_w_sch_id`),
+  ADD PRIMARY KEY (`pt_id`,`sch_time_id`,`pt_w_sch_day`),
   ADD KEY `sch_time_id` (`sch_time_id`),
   ADD KEY `pt_id` (`pt_id`);
 
@@ -291,25 +292,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `peer_tutor`
 --
 ALTER TABLE `peer_tutor`
-  MODIFY `pt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `pt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `pt_courses`
 --
 ALTER TABLE `pt_courses`
-  MODIFY `pt_course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `pt_course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `pt_schedule`
 --
 ALTER TABLE `pt_schedule`
   MODIFY `pt_sch_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pt_weekly_schedule`
---
-ALTER TABLE `pt_weekly_schedule`
-  MODIFY `pt_w_sch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `schedule_time`
